@@ -1,7 +1,6 @@
 {
   "*.ts": [
     "eslint 'src/**' --fix",
-    "npx run test:staged",
-    "git add"
+    "npx run test:staged"
   ]
 }
