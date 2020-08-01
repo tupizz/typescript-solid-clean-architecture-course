@@ -1,21 +1,17 @@
 import { SignUpController } from './signup'
 
-import {
-  InvalidParamError,
-  MissingParamError,
-  ServerError
-} from '../../errors'
+import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 
 import {
   AccountModel,
   AddAccount,
   EmailValidator,
-  AddAccountModel
+  AddAccountModel,
 } from './signup-protocols'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
-    isValid (email: string): boolean {
+    isValid(email: string): boolean {
       return true
     }
   }
@@ -24,12 +20,12 @@ const makeEmailValidator = (): EmailValidator => {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
         email: 'valid_email@mail.com',
-        password: 'valid_password'
+        password: 'valid_password',
       }
       return Promise.resolve(fakeAccount)
     }
@@ -57,8 +53,8 @@ describe('Name of the group', () => {
       body: {
         email: 'any_email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
@@ -71,8 +67,8 @@ describe('Name of the group', () => {
       body: {
         passwordConfirmation: 'any_password',
         email: 'any_email@mail.com',
-        name: 'any_name'
-      }
+        name: 'any_name',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
@@ -85,8 +81,8 @@ describe('Name of the group', () => {
       body: {
         email: 'any_email@mail.com',
         password: 'any_password',
-        name: 'any_name'
-      }
+        name: 'any_name',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
@@ -101,8 +97,8 @@ describe('Name of the group', () => {
       body: {
         name: 'any_name',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
@@ -118,8 +114,8 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'invalid_mail@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
@@ -135,8 +131,8 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
     await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('email@mail.com')
@@ -153,8 +149,8 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
 
     const httpResponse = await sut.handle(httpRequest)
@@ -174,8 +170,8 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
 
     const httpResponse = await sut.handle(httpRequest)
@@ -191,8 +187,8 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'invalid_password'
-      }
+        passwordConfirmation: 'invalid_password',
+      },
     }
 
     const httpResponse = await sut.handle(httpRequest)
@@ -211,15 +207,15 @@ describe('Name of the group', () => {
         name: 'any_name',
         email: 'email@mail.com',
         password: 'any_password',
-        passwordConfirmation: 'any_password'
-      }
+        passwordConfirmation: 'any_password',
+      },
     }
 
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
       email: 'email@mail.com',
-      password: 'any_password'
+      password: 'any_password',
     })
   })
 
@@ -231,8 +227,8 @@ describe('Name of the group', () => {
         name: 'valid_name',
         email: 'valid_email@mail.com',
         password: 'valid_password',
-        passwordConfirmation: 'valid_password'
-      }
+        passwordConfirmation: 'valid_password',
+      },
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
@@ -240,7 +236,7 @@ describe('Name of the group', () => {
       id: 'valid_id',
       name: 'valid_name',
       email: 'valid_email@mail.com',
-      password: 'valid_password'
+      password: 'valid_password',
     })
   })
 })
