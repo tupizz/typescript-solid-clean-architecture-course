@@ -2,12 +2,7 @@ import { SignUpController } from './signup'
 
 import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 
-import {
-  AccountModel,
-  AddAccount,
-  EmailValidator,
-  AddAccountModel,
-} from './signup-protocols'
+import { AccountModel, AddAccount, EmailValidator, AddAccountModel } from './signup-protocols'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -86,9 +81,7 @@ describe('Name of the group', () => {
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(
-      new MissingParamError('passwordConfirmation')
-    )
+    expect(httpResponse.body).toEqual(new MissingParamError('passwordConfirmation'))
   })
 
   test('should return 400 if no email is provided', async () => {
@@ -161,9 +154,7 @@ describe('Name of the group', () => {
   test('should return 500 if AddAccount throws', async () => {
     const { addAccountStub, sut } = makeSutFactory()
 
-    jest
-      .spyOn(addAccountStub, 'add')
-      .mockImplementationOnce(async () => Promise.reject(new Error()))
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => Promise.reject(new Error()))
 
     const httpRequest = {
       body: {
@@ -193,9 +184,7 @@ describe('Name of the group', () => {
 
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(
-      new InvalidParamError('passwordConfirmation')
-    )
+    expect(httpResponse.body).toEqual(new InvalidParamError('passwordConfirmation'))
   })
 
   test('should call AddAccount with correct values', () => {
