@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mongo:
+    container_name: mongo-solid-typescript
+    restart: unless-stopped
+    image: mongo
+    volumes:
+      - mongo-data:/data
+    ports:
+      - '27017:27017'
+    networks:
+      - app-connect
+
+volumes:
+  mongo-data:
+
+networks:
+  app-connect:
+    driver: bridge
